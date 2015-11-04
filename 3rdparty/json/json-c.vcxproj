@@ -72,9 +72,10 @@ copy json_config.h.win32 json_config.h</Command>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)json.lib</OutputFile>
+      <OutputFile>$(OutDir)json-c.lib</OutputFile>
     </Lib>
     <PreBuildEvent>
       <Command>copy config.h.win32 config.h

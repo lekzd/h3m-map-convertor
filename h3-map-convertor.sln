@@ -4,6 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h3-map-convertor", "h3-map-convertor.vcxproj", "{156F28C5-F623-4FEC-AE96-8C70284D6A76}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2} = {04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdparty", "3rdparty", "{E7906E21-8105-4E7E-B168-9DFC1D261013}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json-c", "3rdparty\json\json-c.vcxproj", "{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +28,17 @@ Global
 		{156F28C5-F623-4FEC-AE96-8C70284D6A76}.Release|x64.Build.0 = Release|x64
 		{156F28C5-F623-4FEC-AE96-8C70284D6A76}.Release|x86.ActiveCfg = Release|Win32
 		{156F28C5-F623-4FEC-AE96-8C70284D6A76}.Release|x86.Build.0 = Release|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Debug|x64.ActiveCfg = Debug|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Debug|x86.ActiveCfg = Debug|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Debug|x86.Build.0 = Debug|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Release|x64.ActiveCfg = Release|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Release|x86.ActiveCfg = Release|Win32
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04D8CDBE-FB3E-4362-87E6-07DC3C0083B2} = {E7906E21-8105-4E7E-B168-9DFC1D261013}
 	EndGlobalSection
 EndGlobal
