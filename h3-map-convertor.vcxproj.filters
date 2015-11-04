@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="h3mhelloworld.c">
+    <ClCompile Include="h3m2json.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
