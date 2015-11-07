@@ -61,13 +61,16 @@ int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 		meta_od_entry = &meta->od_entries[i];
 		od_entry = &h3m->od.entries[i];
 
-		switch (meta_od_entry->oa_type) {
-		case H3M_OBJECT_HERO:
-			parse_hero_data(result, od_entry);
-
-			//ret = parse_od_town(ctx, od_entry, meta_od_entry);
-			break;
+		if (od_entry->header.oa_index != id) {
+			continue;
 		}
+		switch (meta_od_entry->oa_type) {
+			case H3M_OBJECT_HERO:
+				parse_hero_data(result, od_entry);
+
+				break;
+		}
+		break;
 	}
 }
 
