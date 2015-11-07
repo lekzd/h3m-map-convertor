@@ -10,6 +10,8 @@
 #include "3rdparty/json/random_seed.h"
 #include "3rdparty/json/json.h"
 
+#include "objects_parser.h"
+
 char *COLORS[] = {
 	"red",
 	"blue",
@@ -94,28 +96,6 @@ int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_a
 	json_object_array_add(result, items);
 }
 
-int _get_bytes_array(json_object *result, char *bytes)
-{
-	int count = 6;
-	int i = 0;
-	char *strcat(char *dest, const char *src);
-	for (i = 0; i < count; ++i) {
-		BYTE* byte = bytes[i];
-		char byteStr[10];
-		sprintf(byteStr, "%02X", byte);
-
-		// strcat(bytesValue, byteStr[0]);
-		// strcat(bytesValue, byteStr[1]);
-
-		// strcpy(bytesValue, byteStr[(strlen(byteStr)-1)]);
-		// strcpy(bytesValue, byteStr[(strlen(byteStr)-2)]);
-
-		json_object_array_add(result, 
-			json_object_new_string(byteStr));
-	}
-	return 0;
-}
-
 int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
@@ -138,77 +118,6 @@ int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id)
 			break;
 		}
 	}
-}
-
-int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	struct H3M_OD_ENTRY *entry = NULL;
-	int i = 0;
-
-	for (i = 0; i < h3m->od.count; ++i) {
-		entry = &h3m->od.entries[i];
-		if (entry->header.oa_index == id) {
-
-			if (entry->body) {
-				int body_size = sizeof(entry->body);
-			}
-
-			break;
-		}
-	}
-}
-
-int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	struct H3M_OA_ENTRY *entry = NULL;
-	entry = &h3m->oa.entries[id];
-
-	json_object_object_add(result, "id", 
-		json_object_new_int(id));
-
-	json_object_object_add(result, "texture", 
-		json_object_new_string((char *)entry->header.def));
-
-	json_object *entity_coords_data;
-	entity_coords_data = json_object_new_array();
-	_get_entity_coords_data(entity_coords_data, ctx, id);
-	json_object_object_add(result, "coords", entity_coords_data);
-
-	json_object *passability_json;
-	passability_json = json_object_new_array();
-	_get_bytes_array(passability_json, (char *)entry->body.passable);
-	json_object_object_add(result, "passability", passability_json);
-
-	json_object *actions_json;
-	actions_json = json_object_new_array();
-	_get_bytes_array(actions_json, (char *)entry->body.active);
-	json_object_object_add(result, "actions", actions_json);
-
-	json_object *entity_data;
-	entity_data = json_object_new_object();
-	_get_entity_data(entity_data, ctx, id);
-	json_object_object_add(result, "data", entity_data);
-
-	json_object_object_add(result, "object_class", 
-		json_object_new_int((int *)entry->body.object_class));
-
-	return 0;
-}
-
-int _get_map_objects_json(json_object *result, h3mlib_ctx_t ctx)
-{	
-	json_object *object;
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	int i = 0;
-
-	for (i = 0; i < h3m->oa.count; ++i) {
-		object = json_object_new_object();
-		_get_object_json_data(object, ctx, i);
-		json_object_array_add(result, object);
-	}
-	return 0;
 }
 
 int _get_map_players_json(json_object *result, h3mlib_ctx_t ctx)

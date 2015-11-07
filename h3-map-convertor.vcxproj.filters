@@ -18,5 +18,13 @@
     <ClCompile Include="h3m2json.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="objects_parser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="objects_parser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

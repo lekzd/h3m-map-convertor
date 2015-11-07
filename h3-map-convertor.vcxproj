@@ -129,6 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="h3m2json.c" />
+    <ClCompile Include="objects_parser.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="objects_parser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
