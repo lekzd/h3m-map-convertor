@@ -77,12 +77,14 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../homm3tools;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>../homm3tools;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>h3mtilespritegen_static.lib;gzip_utils.lib;h3mlib.lib;json-c.lib;kernel32.lib;user32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>h3mtilespritegen_static.lib;gzip_utils.lib;h3mlib.lib;json-c.lib;kernel32.lib;user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>3rdparty/json/Debug;../homm3tools/OUTPUT/Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

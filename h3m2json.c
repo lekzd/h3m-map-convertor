@@ -306,7 +306,7 @@ int _get_map_tiles_json(json_object *result, h3mlib_ctx_t ctx)
 	return 0;
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	json_object *map;
 	json_object *properties;
@@ -316,9 +316,10 @@ int main(void)
 
 	h3mlib_ctx_t h3m = NULL;
 
-	WCHAR MAP_FILE_NAME[] = L"D:\\HTTPD\\home\\homm3tools\\OUTPUT\\Debug\\big_test.h3m";
+	WCHAR path_u[MAX_PATH];
 
-	if (0 != h3m_read_u(&h3m, MAP_FILE_NAME)) {
+	_snwprintf(path_u, sizeof(path_u) / sizeof(WCHAR) - 1, L"%S", argv[1]);
+	if (0 != h3m_read_u(&h3m, path_u)) {
 		return 1;
 	}
 
@@ -368,7 +369,7 @@ int main(void)
 	//write string to file
 	FILE *fp;
 
-	fp = fopen("D:\\HTTPD\\home\\homm3tools\\OUTPUT\\Debug\\out.json", "w+");
+	fp = fopen(argv[2], "w+");
 
 	fputs(json_object_to_json_string(map), fp);
 
