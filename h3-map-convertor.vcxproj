@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\h3m2json.c" />
+    <ClCompile Include="src\objects_parser.c" />
+    <ClCompile Include="src\properties_parser.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\objects_parser.h" />
+    <ClInclude Include="src\properties_parser.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{156F28C5-F623-4FEC-AE96-8C70284D6A76}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -127,13 +136,6 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="h3m2json.c" />
-    <ClCompile Include="objects_parser.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="objects_parser.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

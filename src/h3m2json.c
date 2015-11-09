@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../homm3tools/h3m/h3mlib/h3mlib.h"
-#include "../homm3tools/h3m/h3mlib/h3mlib_ctx.h"
+#include "../../homm3tools/h3m/h3mlib/h3mlib.h"
+#include "../../homm3tools/h3m/h3mlib/h3mlib_ctx.h"
 
-#include "3rdparty/json/random_seed.h"
-#include "3rdparty/json/json.h"
+#include "../3rdparty/json/random_seed.h"
+#include "../3rdparty/json/json.h"
 
+#include "properties_parser.h"
 #include "objects_parser.h"
 
 char *COLORS[] = {
@@ -22,57 +23,6 @@ char *COLORS[] = {
 	"teal",
 	"pink"
 };
-
-int _get_map_version(char *result, h3mlib_ctx_t ctx) 
-{
-	switch (h3m_get_format(ctx)) {
-		case H3M_FORMAT_ROE: {
-			strcpy(result, "RoE");
-			break;
-		}
-		case H3M_FORMAT_AB: {
-			strcpy(result, "AB");
-			break;
-		}
-		case H3M_FORMAT_SOD: {
-			strcpy(result, "SoD");
-			break;
-		}
-		case H3M_FORMAT_WOG: {
-			strcpy(result, "WoG");
-			break;
-		}
-	}
-	return 0;
-}
-
-int _get_has_caves(int *result, h3mlib_ctx_t ctx)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	result = h3m->bi.any.has_two_levels;
-	return 0;
-}
-
-int _get_difficulty_level(int *result, h3mlib_ctx_t ctx)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	result = h3m->bi.any.difficulty;
-	return 0;
-}
-
-int _get_map_name(WCHAR *result, h3mlib_ctx_t ctx)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	strcpy(result, h3m->bi.any.name);
-	return 0;
-}
-
-int _get_map_desc(WCHAR *result, h3mlib_ctx_t ctx)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	strcpy(result, h3m->bi.any.desc);
-	return 0;
-}
 
 int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_ai)
 {	
@@ -94,30 +44,6 @@ int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_a
 	}
 	
 	json_object_array_add(result, items);
-}
-
-int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id)
-{
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	struct H3M_OD_ENTRY *entry = NULL;
-	int i = 0;
-
-	for (i = 0; i < h3m->od.count; ++i) {
-		entry = &h3m->od.entries[i];
-		if (entry->header.oa_index == id) {
-
-			json_object_array_add(result, 
-				json_object_new_int(entry->header.x));
-
-			json_object_array_add(result, 
-				json_object_new_int(entry->header.y));
-
-			json_object_array_add(result, 
-				json_object_new_int(entry->header.z));
-
-			break;
-		}
-	}
 }
 
 int _get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
@@ -239,23 +165,7 @@ int main(int argc, char *argv[])
 	//Map properties
 	json_object *propertyItem;
 	properties = json_object_new_object();
-	char mapVersion[4];
-	_get_map_version(mapVersion, h3m);
-	json_object_object_add(properties, "version", json_object_new_string(mapVersion));
-	size_t mapSize = h3m_get_map_size(h3m);
-	json_object_object_add(properties, "map_size", json_object_new_int(mapSize));
-	int hasCaves = 0;
-	_get_has_caves(hasCaves, h3m);
-	json_object_object_add(properties, "has_caves", json_object_new_int(hasCaves));
-	int difficulty = 0;
-	_get_difficulty_level(difficulty, h3m);
-	json_object_object_add(properties, "difficulty", json_object_new_int(difficulty));
-	WCHAR name[255] = L"";
-	_get_map_name(name, h3m);
-	json_object_object_add(properties, "name", json_object_new_string(name));
-	WCHAR desc[255] = L"";
-	_get_map_desc(desc, h3m);
-	json_object_object_add(properties, "descr", json_object_new_string(desc));
+	
 
 	//Map players
 	players = json_object_new_array();

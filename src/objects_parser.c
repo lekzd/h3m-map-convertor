@@ -1,8 +1,8 @@
-#include "../homm3tools/h3m/h3mlib/h3mlib.h"
-#include "../homm3tools/h3m/h3mlib/h3mlib_ctx.h"
+#include "../../homm3tools/h3m/h3mlib/h3mlib.h"
+#include "../../homm3tools/h3m/h3mlib/h3mlib_ctx.h"
 
-#include "3rdparty/json/random_seed.h"
-#include "3rdparty/json/json.h"
+#include "../3rdparty/json/random_seed.h"
+#include "../3rdparty/json/json.h"
 
 int _get_bytes_array(json_object *result, char *bytes)
 {
@@ -15,6 +15,30 @@ int _get_bytes_array(json_object *result, char *bytes)
 			json_object_new_int(byte));
 	}
 	return 0;
+}
+
+int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id)
+{
+	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
+	struct H3M_OD_ENTRY *entry = NULL;
+	int i = 0;
+
+	for (i = 0; i < h3m->od.count; ++i) {
+		entry = &h3m->od.entries[i];
+		if (entry->header.oa_index == id) {
+
+			json_object_array_add(result,
+				json_object_new_int(entry->header.x));
+
+			json_object_array_add(result,
+				json_object_new_int(entry->header.y));
+
+			json_object_array_add(result,
+				json_object_new_int(entry->header.z));
+
+			break;
+		}
+	}
 }
 
 int parse_hero_data(json_object *result, struct H3M_OD_ENTRY *od_entry)
