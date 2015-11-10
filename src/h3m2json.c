@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 	//Map objects
 	objects = json_object_new_array();
-	_get_map_objects_json(objects, h3m);
+	get_map_objects_json(objects, h3m);
 
 	//finalizing	
 	// json_object_object_add(map, "props", properties);
