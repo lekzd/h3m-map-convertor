@@ -6,7 +6,7 @@
 #include "../3rdparty/json/random_seed.h"
 #include "../3rdparty/json/json.h"
 
-int _get_map_version(char *result, h3mlib_ctx_t ctx)
+static int _get_map_version(char *result, h3mlib_ctx_t ctx)
 {
 	switch (h3m_get_format(ctx)) {
 	case H3M_FORMAT_ROE: {
@@ -29,28 +29,28 @@ int _get_map_version(char *result, h3mlib_ctx_t ctx)
 	return 0;
 }
 
-int _get_has_caves(int *result, h3mlib_ctx_t ctx)
+static int _get_has_caves(int *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	result = h3m->bi.any.has_two_levels;
 	return 0;
 }
 
-int _get_difficulty_level(int *result, h3mlib_ctx_t ctx)
+static int _get_difficulty_level(int *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	result = h3m->bi.any.difficulty;
 	return 0;
 }
 
-int _get_map_name(WCHAR *result, h3mlib_ctx_t ctx)
+static int _get_map_name(WCHAR *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	strcpy(result, h3m->bi.any.name);
 	return 0;
 }
 
-int _get_map_desc(WCHAR *result, h3mlib_ctx_t ctx)
+static int _get_map_desc(WCHAR *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	strcpy(result, h3m->bi.any.desc);
