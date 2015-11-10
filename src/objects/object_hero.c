@@ -10,9 +10,6 @@ int parse_object_hero(json_object *result, struct H3M_OD_ENTRY *od_entry)
 	struct H3M_OD_BODY_DYNAMIC_HERO *body = NULL;
 	body = od_entry->body;
 
-	json_object_object_add(result, 
-			"type",	json_object_new_string("hero"));
-
 	if (body->has_name) {
 		json_object_object_add(result,
 			"name", json_object_new_string(body->name));

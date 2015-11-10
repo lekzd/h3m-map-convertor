@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{2c13cfa3-a5cd-4835-a6a0-bcec8510258c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\h3m2json.c">
@@ -31,7 +34,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\objects\object_hero.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\object_static_flagged.c">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +54,10 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\object_hero.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_static_flagged.h">
+      <Filter>Source Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

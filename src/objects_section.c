@@ -60,9 +60,23 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 			continue;
 		}
 		switch (meta_od_entry->oa_type) {
-			case H3M_OBJECT_HERO:
-				// parse_object_hero(result, od_entry);
+			case H3M_OBJECT_DWELLING:
+		    case H3M_OBJECT_DWELLING_ABSOD:
+		    	json_object_object_add(result, "type", json_object_new_string("dwelling"));
+		    case H3M_OBJECT_LIGHTHOUSE:
+		    	json_object_object_add(result, "type", json_object_new_string("lighthouse"));
+		    case H3M_OBJECT_RESOURCE_GENERATOR:
+		    	json_object_object_add(result, "type", json_object_new_string("mill"));
+		    case H3M_OBJECT_SHIPYARD:
+		    	json_object_object_add(result, "type", json_object_new_string("shipyard"));
+		    case H3M_OBJECT_ABANDONED_MINE_ABSOD:
+		    	json_object_object_add(result, "type", json_object_new_string("abandoned_mine"));
+		    	parse_object_static_flagged(result, od_entry);
+				break;
 
+			case H3M_OBJECT_HERO:
+				json_object_object_add(result, "type", json_object_new_string("hero"));
+				parse_object_hero(result, od_entry);
 				break;
 		}
 		break;
