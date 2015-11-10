@@ -18,18 +18,36 @@
     <ClCompile Include="src\h3m2json.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\objects_parser.c">
+    <ClCompile Include="src\objects_section.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\properties_parser.c">
+    <ClCompile Include="src\properties_section.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiles_section.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\players_section.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\object_hero.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\objects_parser.h">
+    <ClInclude Include="src\objects_section.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\properties_parser.h">
+    <ClInclude Include="src\properties_section.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiles_section.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\players_section.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_hero.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

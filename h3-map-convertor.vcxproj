@@ -20,12 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\h3m2json.c" />
-    <ClCompile Include="src\objects_parser.c" />
-    <ClCompile Include="src\properties_parser.c" />
+    <ClCompile Include="src\objects\object_hero.c" />
+    <ClCompile Include="src\objects_section.c" />
+    <ClCompile Include="src\players_section.c" />
+    <ClCompile Include="src\properties_section.c" />
+    <ClCompile Include="src\tiles_section.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\objects_parser.h" />
-    <ClInclude Include="src\properties_parser.h" />
+    <ClInclude Include="src\objects\object_hero.h" />
+    <ClInclude Include="src\objects_section.h" />
+    <ClInclude Include="src\players_section.h" />
+    <ClInclude Include="src\properties_section.h" />
+    <ClInclude Include="src\tiles_section.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{156F28C5-F623-4FEC-AE96-8C70284D6A76}</ProjectGuid>
