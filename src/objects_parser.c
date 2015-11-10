@@ -136,7 +136,7 @@ int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
 	return 0;
 }
 
-int _get_map_objects_json(json_object *result, h3mlib_ctx_t ctx)
+int get_map_objects_json(json_object *result, h3mlib_ctx_t ctx)
 {
 	json_object *object;
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;

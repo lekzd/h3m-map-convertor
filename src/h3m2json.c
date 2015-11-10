@@ -24,7 +24,7 @@ char *COLORS[] = {
 	"pink"
 };
 
-int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_ai)
+static int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_ai)
 {	
 	json_object *items;
 	json_object *hero_item;
@@ -46,7 +46,7 @@ int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_a
 	json_object_array_add(result, items);
 }
 
-int _get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
+static int _get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	const struct H3MLIB_META *meta = &ctx->meta;
@@ -101,7 +101,7 @@ int _get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 
 }
 
-int _get_map_tiles_json(json_object *result, h3mlib_ctx_t ctx)
+static int _get_map_tiles_json(json_object *result, h3mlib_ctx_t ctx)
 {
 	struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	size_t mapSize = h3m_get_map_size(ctx);
