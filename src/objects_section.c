@@ -44,6 +44,11 @@ static int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id
 	return 0;
 }
 
+static void _set_type(json_object *result, char *type_name) 
+{
+	json_object_object_add(result, "type", json_object_new_string(type_name));
+}
+
 static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
@@ -62,21 +67,46 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 		switch (meta_od_entry->oa_type) {
 			case H3M_OBJECT_DWELLING:
 		    case H3M_OBJECT_DWELLING_ABSOD:
-		    	json_object_object_add(result, "type", json_object_new_string("dwelling"));
+		    	_set_type(result, "dwelling");
 		    case H3M_OBJECT_LIGHTHOUSE:
-		    	json_object_object_add(result, "type", json_object_new_string("lighthouse"));
+		    	_set_type(result, "lighthouse");
 		    case H3M_OBJECT_RESOURCE_GENERATOR:
-		    	json_object_object_add(result, "type", json_object_new_string("mill"));
+		    	_set_type(result, "mill");
 		    case H3M_OBJECT_SHIPYARD:
-		    	json_object_object_add(result, "type", json_object_new_string("shipyard"));
+		    	_set_type(result, "shipyard");
 		    case H3M_OBJECT_ABANDONED_MINE_ABSOD:
-		    	json_object_object_add(result, "type", json_object_new_string("abandoned_mine"));
+		    	_set_type(result, "abandoned_mine");
 		    	parse_object_static_flagged(result, od_entry);
 				break;
 
+			case H3M_OBJECT_GENERIC_BOAT:
+				_set_type(result, "boat");
+		    case H3M_OBJECT_GENERIC_PASSABLE_TERRAIN:
+		    case H3M_OBJECT_GENERIC_PASSABLE_TERRAIN_SOD:
+		    	_set_type(result, "passable_terrain");
+		    case H3M_OBJECT_GENERIC_IMPASSABLE_TERRAIN:
+		    case H3M_OBJECT_GENERIC_IMPASSABLE_TERRAIN_ABSOD:
+		    	_set_type(result, "impassable_terrain");
+		    case H3M_OBJECT_GENERIC_VISITABLE:
+		    case H3M_OBJECT_GENERIC_VISITABLE_ABSOD:
+		    	_set_type(result, "generic_visitable");
+		    case H3M_OBJECT_GENERIC_TREASURE:
+		    	_set_type(result, "generic_treasure");
+		    case H3M_OBJECT_MONOLITH_TWO_WAY:
+		    	_set_type(result, "monolith_two_way");
+		    case H3M_OBJECT_SUBTERRANEAN_GATE:
+		    	_set_type(result, "subterranean_gate");
+		    	break;
+
 			case H3M_OBJECT_HERO:
-				json_object_object_add(result, "type", json_object_new_string("hero"));
+				_set_type(result, "hero");
 				parse_object_hero(result, od_entry);
+				break;
+
+			case H3M_OBJECT_TOWN:
+    		case H3M_OBJECT_TOWN_ABSOD:
+    			_set_type(result, "town");
+				parse_object_town(result, od_entry);
 				break;
 		}
 		break;
