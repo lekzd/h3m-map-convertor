@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\h3m2json.c" />
+    <ClCompile Include="src\objects_parser.c" />
+    <ClCompile Include="src\properties_parser.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\objects_parser.h" />
+    <ClInclude Include="src\properties_parser.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{156F28C5-F623-4FEC-AE96-8C70284D6A76}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -77,12 +86,14 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../homm3tools;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>../homm3tools;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>h3mtilespritegen_static.lib;gzip_utils.lib;h3mlib.lib;json-c.lib;kernel32.lib;user32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>h3mtilespritegen_static.lib;gzip_utils.lib;h3mlib.lib;json-c.lib;kernel32.lib;user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>3rdparty/json/Debug;../homm3tools/OUTPUT/Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -125,9 +136,6 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="h3m2json.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
