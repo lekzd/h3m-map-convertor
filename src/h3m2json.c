@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
 	objects = json_object_new_array();
 	_get_map_objects_json(objects, h3m);
 
-	//finalizing
+	//finalizing	
 	// json_object_object_add(map, "props", properties);
 	// json_object_object_add(map, "players", players);
 	// json_object_object_add(map, "tiles", tiles);
@@ -197,4 +197,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
