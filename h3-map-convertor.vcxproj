@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\h3m2json.c" />
     <ClCompile Include="src\objects\object_hero.c" />
+    <ClCompile Include="src\objects\object_sign.c" />
     <ClCompile Include="src\objects\object_static_flagged.c" />
     <ClCompile Include="src\objects\object_town.c" />
     <ClCompile Include="src\objects_section.c" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\object_hero.h" />
+    <ClInclude Include="src\objects\object_sign.h" />
     <ClInclude Include="src\objects\object_static_flagged.h" />
     <ClInclude Include="src\objects\object_town.h" />
     <ClInclude Include="src\objects_section.h" />
