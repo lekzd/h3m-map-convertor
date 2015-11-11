@@ -172,6 +172,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 
             case H3M_OBJECT_RESOURCE:
                 _set_type(result, "resource");
+                parse_object_resource(result, od_entry);
                 break;
 
             case H3M_OBJECT_WITCH_HUT:
