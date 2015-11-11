@@ -149,6 +149,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
             case H3M_OBJECT_RANDOM_DWELLING_PRESET_ALIGNMENT_ABSOD:
             case H3M_OBJECT_RANDOM_DWELLING_PRESET_LEVEL_ABSOD:
                 _set_type(result, "random_dwelling");
+                parse_object_random_dwelling(result, od_entry, meta_od_entry);
                 break;
 
             case H3M_OBJECT_MONSTER:

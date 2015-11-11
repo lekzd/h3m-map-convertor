@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\h3m2json.c" />
     <ClCompile Include="src\objects\object_hero.c" />
+    <ClCompile Include="src\objects\object_random_dwelling.c" />
     <ClCompile Include="src\objects\object_resource.c" />
     <ClCompile Include="src\objects\object_sign.c" />
     <ClCompile Include="src\objects\object_static_flagged.c" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\object_hero.h" />
+    <ClInclude Include="src\objects\object_random_dwelling.h" />
     <ClInclude Include="src\objects\object_resource.h" />
     <ClInclude Include="src\objects\object_sign.h" />
     <ClInclude Include="src\objects\object_static_flagged.h" />
