@@ -6,11 +6,11 @@
 
 #include "./objects/object_hero.h"
 
-static int _get_bytes_array(json_object *result, char *bytes)
+#include <stdio.h>
+
+static int _get_bytes_array(json_object *result, char *bytes, int count)
 {
-    int count = 6;
     int i = 0;
-    char *strcat(char *dest, const char *src);
     for (i = 0; i < count; ++i) {
         uint8_t byte = bytes[i];
         json_object_array_add(result,
@@ -23,12 +23,11 @@ static int _get_entity_coords_data(json_object *result, h3mlib_ctx_t ctx, int id
 {
     const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
     struct H3M_OD_ENTRY *entry = NULL;
-    int i = 0;
 
-    for (i = 0; i < h3m->od.count; ++i) {
+    for (unsigned int i = 0; i < h3m->od.count; ++i) {
         entry = &h3m->od.entries[i];
         if (entry->header.oa_index == id) {
-
+			
             json_object_array_add(result,
                 json_object_new_int(entry->header.x));
 
@@ -58,9 +57,8 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
     struct H3MLIB_META *meta = &((struct H3MLIB_CTX *)ctx)->meta;
     struct META_OD_ENTRY *meta_od_entry = NULL;
     struct H3M_OD_ENTRY *od_entry = NULL;
-    int i = 0;
 
-    for (i = 0; i < h3m->od.count; ++i) {
+    for (unsigned int i = 0; i < h3m->od.count; ++i) {
         meta_od_entry = &meta->od_entries[i];
         od_entry = &h3m->od.entries[i];
 
@@ -205,13 +203,15 @@ static int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
 
     json_object *passability_json;
     passability_json = json_object_new_array();
-    _get_bytes_array(passability_json, (char *)entry->body.passable);
+    _get_bytes_array(passability_json, (char *)entry->body.passable,
+		sizeof(entry->body.passable));
     json_object_object_add(result, 
         "passability", passability_json);
 
     json_object *actions_json;
     actions_json = json_object_new_array();
-    _get_bytes_array(actions_json, (char *)entry->body.active);
+    _get_bytes_array(actions_json, (char *)entry->body.active,
+		sizeof(entry->body.active));
     json_object_object_add(result, 
         "actions", actions_json);
 
@@ -222,7 +222,7 @@ static int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
         "data", entity_data);
 
     json_object_object_add(result, 
-        "object_class", json_object_new_int((int *)entry->body.object_class));
+        "object_class", json_object_new_int((int)entry->body.object_class));
 
     return 0;
 }
@@ -231,9 +231,8 @@ int get_map_objects_json(json_object *result, h3mlib_ctx_t ctx)
 {
     json_object *object;
     const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-    int i = 0;
 
-    for (i = 0; i < h3m->oa.count; ++i) {
+    for (unsigned int i = 0; i < h3m->oa.count; ++i) {
         object = json_object_new_object();
         _get_object_json_data(object, ctx, i);
         json_object_array_add(result, object);
