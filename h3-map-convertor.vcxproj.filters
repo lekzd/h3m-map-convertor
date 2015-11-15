@@ -42,6 +42,15 @@
     <ClCompile Include="src\objects\object_town.c">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\objects\object_sign.c">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\object_resource.c">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\object_random_dwelling.c">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects_section.h">
@@ -63,6 +72,15 @@
       <Filter>Source Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\object_town.h">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_sign.h">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_resource.h">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_random_dwelling.h">
       <Filter>Source Files\objects</Filter>
     </ClInclude>
   </ItemGroup>

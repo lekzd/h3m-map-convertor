@@ -66,6 +66,10 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
             continue;
         }
         switch (meta_od_entry->oa_type) {
+            case H3M_OBJECT_PLACEHOLDER_HERO:
+                _set_type(result, "hero_placeholder");
+                break;
+
             case H3M_OBJECT_QUEST_GUARD:
                 _set_type(result, "quest_guard");
                 break;
@@ -78,6 +82,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
                 _set_type(result, "sign");
             case H3M_OBJECT_OCEAN_BOTTLE:
                 _set_type(result, "ocean_bottle");
+                parse_object_sign(result, od_entry);
                 break;
 
             case H3M_OBJECT_GARRISON:
@@ -127,7 +132,10 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
                 break;
 
             case H3M_OBJECT_HERO:
+            case H3M_OBJECT_RANDOM_HERO:
                 _set_type(result, "hero");
+            case H3M_OBJECT_PRISON:
+                _set_type(result, "prison");
                 parse_object_hero(result, od_entry);
                 break;
 
@@ -141,6 +149,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
             case H3M_OBJECT_RANDOM_DWELLING_PRESET_ALIGNMENT_ABSOD:
             case H3M_OBJECT_RANDOM_DWELLING_PRESET_LEVEL_ABSOD:
                 _set_type(result, "random_dwelling");
+                parse_object_random_dwelling(result, od_entry, meta_od_entry);
                 break;
 
             case H3M_OBJECT_MONSTER:
@@ -164,6 +173,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
 
             case H3M_OBJECT_RESOURCE:
                 _set_type(result, "resource");
+                parse_object_resource(result, od_entry);
                 break;
 
             case H3M_OBJECT_WITCH_HUT:
