@@ -1,6 +1,5 @@
 // Created by Lekzd 02.11.2015
 
-#include <windows.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -15,7 +14,7 @@
 #include "players_section.h"
 #include "tiles_section.h"
 
-int main(int argc, char *argv[])
+int wmain(int argc, wchar_t *argv[], wchar_t *envp[])
 {
 	json_object *map;
 	json_object *properties;
@@ -25,10 +24,11 @@ int main(int argc, char *argv[])
 
 	h3mlib_ctx_t h3m = NULL;
 
-	WCHAR path_u[MAX_PATH];
+	if (argc != 3) {
+		return 1;
+	}
 
-	_snwprintf(path_u, sizeof(path_u) / sizeof(WCHAR) - 1, L"%S", argv[1]);
-	if (0 != h3m_read_u(&h3m, path_u)) {
+	if (0 != h3m_read_u(&h3m, argv[1])) {
 		return 1;
 	}
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	//write string to file
 	FILE *fp;
 
-	fp = fopen(argv[2], "w+");
+	fp = _wfopen(argv[2], L"w+");
 
 	fputs(json_object_to_json_string(map), fp);
 

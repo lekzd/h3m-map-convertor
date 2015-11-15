@@ -7,8 +7,8 @@
 
 int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry)
 {
-	struct H3M_OD_BODY_DYNAMIC_TOWN *body = NULL;
-	body = od_entry->body;
+	struct H3M_OD_BODY_DYNAMIC_TOWN *body
+		= (struct H3M_OD_BODY_DYNAMIC_TOWN *)od_entry->body;
 
 	json_object_object_add(result,
 			"owner", json_object_new_int(body->owner));
@@ -16,7 +16,7 @@ int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry)
     //TODO correct reading of multibyte name
     if (body->has_name) {
         json_object_object_add(result,
-            "name", json_object_new_string(body->name));
+            "name", json_object_new_string((char *)body->name));
     }
 
     json_object_object_add(result,

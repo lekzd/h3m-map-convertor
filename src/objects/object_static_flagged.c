@@ -7,8 +7,8 @@
 
 int parse_object_static_flagged(json_object *result, struct H3M_OD_ENTRY *od_entry)
 {
-	struct H3M_OD_BODY_STATIC_FLAGGED *body = NULL;
-	body = od_entry->body;
+	struct H3M_OD_BODY_STATIC_FLAGGED *body
+		= (struct H3M_OD_BODY_STATIC_FLAGGED *)od_entry->body;
 
 	json_object_object_add(result,
 			"owner", json_object_new_int(body->owner));

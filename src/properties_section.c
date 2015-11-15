@@ -32,28 +32,36 @@ static int _get_map_version(char *result, h3mlib_ctx_t ctx)
 static int _get_has_caves(int *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	result = h3m->bi.any.has_two_levels;
+	*result = (int)h3m->bi.any.has_two_levels;
 	return 0;
 }
 
 static int _get_difficulty_level(int *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	result = h3m->bi.any.difficulty;
+	*result = h3m->bi.any.difficulty;
 	return 0;
 }
 
-static int _get_map_name(WCHAR *result, h3mlib_ctx_t ctx)
+static int _get_map_name(char *result, size_t n, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	strcpy(result, h3m->bi.any.name);
+	if (h3m->bi.any.name != NULL) {
+		strncpy(result, (char *)h3m->bi.any.name, n);
+	} else {
+		*result = '\0';
+	}
 	return 0;
 }
 
-static int _get_map_desc(WCHAR *result, h3mlib_ctx_t ctx)
+static int _get_map_desc(char *result, size_t n, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	strcpy(result, h3m->bi.any.desc);
+	if (h3m->bi.any.name != NULL) {
+		strncpy(result, (char *)h3m->bi.any.desc, n);
+	} else {
+		*result = '\0';
+	}
 	return 0;
 }
 
@@ -69,22 +77,22 @@ int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 		"map_size", json_object_new_int(mapSize));
 
 	int hasCaves = 0;
-	_get_has_caves(hasCaves, ctx);
+	_get_has_caves(&hasCaves, ctx);
 	json_object_object_add(result, 
 		"has_caves", json_object_new_int(hasCaves));
 
 	int difficulty = 0;
-	_get_difficulty_level(difficulty, ctx);
+	_get_difficulty_level(&difficulty, ctx);
 	json_object_object_add(result, 
 		"difficulty", json_object_new_int(difficulty));
 
-	WCHAR name[255] = L"";
-	_get_map_name(name, ctx);
+	char name[255] = { 0 };
+	_get_map_name(name, sizeof(name), ctx);
 	json_object_object_add(result, 
 		"name", json_object_new_string(name));
 
-	WCHAR desc[255] = L"";
-	_get_map_desc(desc, ctx);
+	char desc[255] = { 0 };
+	_get_map_desc(desc, sizeof(desc), ctx);
 	json_object_object_add(result, 
 		"descr", json_object_new_string(desc));
 
