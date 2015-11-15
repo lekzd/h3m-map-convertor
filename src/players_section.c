@@ -23,9 +23,8 @@ static int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *p
 	json_object *hero_item;
 	items = json_object_new_array();
 	hero_item = json_object_new_object();
-	int i = 0;
 
-	for (i = 0; i < player_ai->heroes_count; ++i) {
+	for (unsigned int i = 0; i < player_ai->heroes_count; ++i) {
 		// int player_type = player_ai->heroes[i].type;
 		// json_object_object_add(hero_item, "type", 
 		// 	json_object_new_int(player_type));
@@ -37,12 +36,14 @@ static int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *p
 	}
 	
 	json_object_array_add(result, items);
+
+	return 0;
 }
 
 int get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 {
-	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	const struct H3MLIB_META *meta = &ctx->meta;
+	struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
+	struct H3MLIB_META *meta = &ctx->meta;
 	union H3M_PLAYER *player = NULL;
 	int i = 0;
 
@@ -89,11 +90,12 @@ int get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 			player_heroes = json_object_new_array();
 			_get_player_heroes(player_heroes, &h3m->player_ai[i]);
 			json_object_object_add(item, 
-				"heroes", json_object_new_array(player_heroes));
+				"heroes", player_heroes);
 		}
 
 
 		json_object_array_add(result, item);
 	}
 
+	return 0;
 }

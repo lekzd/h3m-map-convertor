@@ -7,11 +7,13 @@
 
 int parse_object_sign(json_object *result, struct H3M_OD_ENTRY *od_entry)
 {
-	struct H3M_OD_BODY_DYNAMIC_MESSAGE_BEARER *body = NULL;
-	body = od_entry->body;
+	struct H3M_OD_BODY_DYNAMIC_MESSAGE_BEARER *body 
+		= (struct H3M_OD_BODY_DYNAMIC_MESSAGE_BEARER *)od_entry->body;
 
-	json_object_object_add(result,
-			"message", json_object_new_int(body->mesg));
+	if (body->mesg_size > 0) {
+		json_object_object_add(result,
+			"message", json_object_new_string((char *)body->mesg));
+	}
 
 	return 0;
 }

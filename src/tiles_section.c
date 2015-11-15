@@ -10,15 +10,12 @@ int get_map_tiles_json(json_object *result, h3mlib_ctx_t ctx)
 {
 	struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
 	size_t mapSize = h3m_get_map_size(ctx);
-	int levelsCount = h3m->bi.any.has_two_levels;
-	int i = 0;
-	int x = 0;
-	int y = 0;
-	int z = 0;
+	unsigned int levelsCount = h3m->bi.any.has_two_levels;
+	unsigned int i = 0;
 
-	for (z = 0; z <= levelsCount; ++z) {
-		for (y = 0; y < mapSize; ++y) {
-			for (x = 0; x < mapSize; ++x) {
+	for (unsigned int z = 0; z <= levelsCount; ++z) {
+		for (unsigned int y = 0; y < mapSize; ++y) {
+			for (unsigned int x = 0; x < mapSize; ++x) {
 
 				json_object *tile;
 				tile = json_object_new_array();
@@ -38,9 +35,7 @@ int get_map_tiles_json(json_object *result, h3mlib_ctx_t ctx)
 
 				i++;
 			}
-			x = 0;
 		}
-		y = 0;
 	}
 
 	return 0;

@@ -232,7 +232,7 @@ static int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
         "data", entity_data);
 
     json_object_object_add(result, 
-        "object_class", json_object_new_int((int)entry->body.object_class));
+        "object_class", json_object_new_int((int32_t)entry->body.object_class));
 
     return 0;
 }

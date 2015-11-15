@@ -7,8 +7,8 @@
 
 int parse_object_random_dwelling(json_object *result, struct H3M_OD_ENTRY *od_entry, struct META_OD_ENTRY *meta_od_entry)
 {
-	struct H3M_OD_BODY_DYNAMIC_RANDOM_DWELLING *body = NULL;
-	body = od_entry->body;
+	struct H3M_OD_BODY_DYNAMIC_RANDOM_DWELLING *body 
+		= (struct H3M_OD_BODY_DYNAMIC_RANDOM_DWELLING *)od_entry->body;
 
 	json_object_object_add(result,
 			"owner", json_object_new_int(body->owner));
