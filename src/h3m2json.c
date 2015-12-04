@@ -51,9 +51,9 @@ int wmain(int argc, wchar_t *argv[], wchar_t *envp[])
 	get_map_objects_json(objects, h3m);
 
 	//finalizing	
-	// json_object_object_add(map, "props", properties);
-	// json_object_object_add(map, "players", players);
-	// json_object_object_add(map, "tiles", tiles);
+	json_object_object_add(map, "props", properties);
+	json_object_object_add(map, "players", players);
+	json_object_object_add(map, "tiles", tiles);
 	json_object_object_add(map, "objects", objects);
 
 	//write string to file

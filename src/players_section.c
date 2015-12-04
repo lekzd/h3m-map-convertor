@@ -17,29 +17,6 @@ static char *COLORS[] = {
 	"pink"
 };
 
-static int _get_player_heroes(json_object *result, struct H3M_PLAYER_AI_ABSOD *player_ai)
-{	
-	json_object *items;
-	json_object *hero_item;
-	items = json_object_new_array();
-	hero_item = json_object_new_object();
-
-	for (unsigned int i = 0; i < player_ai->heroes_count; ++i) {
-		// int player_type = player_ai->heroes[i].type;
-		// json_object_object_add(hero_item, "type", 
-		// 	json_object_new_int(player_type));
-
-		// json_object_object_add(hero_item, "name", 
-		// 	json_object_new_string(player_ai->heroes[i].name));
-
-		json_object_array_add(items, hero_item);
-	}
-	
-	json_object_array_add(result, items);
-
-	return 0;
-}
-
 int get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 {
 	struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
@@ -86,11 +63,6 @@ int get_map_players_json(json_object *result, h3mlib_ctx_t ctx)
 
 			json_object_object_add(item, 
 				"has_main_town", json_object_new_boolean(player->sod.has_main_town));
-
-			player_heroes = json_object_new_array();
-			_get_player_heroes(player_heroes, &h3m->player_ai[i]);
-			json_object_object_add(item, 
-				"heroes", player_heroes);
 		}
 
 
