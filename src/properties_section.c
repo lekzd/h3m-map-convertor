@@ -65,6 +65,26 @@ static int _get_map_desc(char *result, size_t n, h3mlib_ctx_t ctx)
 	return 0;
 }
 
+static int _get_win_condition(json_object *result, h3mlib_ctx_t ctx)
+{
+	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
+	json_object_object_add(result,
+		"type", json_object_new_int(h3m->ai.any.win_cond_type));
+	json_object_object_add(result,
+		"allow_normal_win", json_object_new_int(h3m->ai.any.win_cond.c_flag.allow_normal_win));
+	json_object_object_add(result,
+		"applies_to_computer", json_object_new_int(h3m->ai.any.win_cond.c_flag.applies_to_computer));
+	return 0;
+}
+
+static int _get_lose_condition(json_object *result, h3mlib_ctx_t ctx)
+{
+	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
+	json_object_object_add(result,
+		"type", json_object_new_int(h3m->ai.any.lose_cond_type));
+	return 0;
+}
+
 int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 {
 	char mapVersion[4];
@@ -95,6 +115,18 @@ int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 	_get_map_desc(desc, sizeof(desc), ctx);
 	json_object_object_add(result, 
 		"descr", json_object_new_string(desc));
+
+	json_object *win_conditions_json;
+	win_conditions_json = json_object_new_object();
+	_get_win_condition(win_conditions_json, ctx);
+	json_object_object_add(result,
+		"win_condition", win_conditions_json);
+
+	json_object *lose_conditions_json;
+	lose_conditions_json = json_object_new_object();
+	_get_lose_condition(lose_conditions_json, ctx);
+	json_object_object_add(result,
+		"lose_condition", lose_conditions_json);
 
 	return 0;
 }

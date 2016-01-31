@@ -18,6 +18,9 @@ int parse_object_hero(json_object *result, struct H3M_OD_ENTRY *od_entry)
 	json_object_object_add(result,
 			"owner", json_object_new_int(body->owner));
 
+	json_object_object_add(result,
+			"person", json_object_new_int(body->type));
+
 	if (body->has_face) {
 		json_object_object_add(result,
 			"portrait", json_object_new_int(body->face));
@@ -29,7 +32,7 @@ int parse_object_hero(json_object *result, struct H3M_OD_ENTRY *od_entry)
 	}
 
 	json_object_object_add(result,
-			"gender", json_object_new_boolean(body->gender));
+			"gender", json_object_new_int(body->gender));
 
 	return 0;
 }

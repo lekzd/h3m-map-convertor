@@ -50,10 +50,13 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
     const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
     struct H3MLIB_META *meta = &((struct H3MLIB_CTX *)ctx)->meta;
     struct META_OD_ENTRY *meta_od_entry = NULL;
-    struct H3M_OD_ENTRY *od_entry = NULL;
+
+	struct H3M_OA_ENTRY *oa_entry = NULL;
+	struct H3M_OD_ENTRY *od_entry = NULL;
 
 	meta_od_entry = &meta->od_entries[id];
 	od_entry = &h3m->od.entries[id];
+	oa_entry = &h3m->oa.entries[od_entry->header.oa_index];
 
     switch (meta_od_entry->oa_type) {
         case H3M_OBJECT_PLACEHOLDER_HERO:
@@ -94,7 +97,7 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
         case H3M_OBJECT_LIGHTHOUSE:
             _set_type(result, "lighthouse");
         case H3M_OBJECT_RESOURCE_GENERATOR:
-            _set_type(result, "mill");
+            _set_type(result, "resource_generator");
         case H3M_OBJECT_SHIPYARD:
             _set_type(result, "shipyard");
         case H3M_OBJECT_ABANDONED_MINE_ABSOD:
@@ -223,6 +226,12 @@ static int _get_object_json_data(json_object *result, h3mlib_ctx_t ctx, int id)
 
     json_object_object_add(result, 
         "object_class", json_object_new_int((int32_t)oa_entry->body.object_class));
+
+	json_object_object_add(result,
+		"object_subclass", json_object_new_int((int32_t)oa_entry->body.object_number));
+
+	json_object_object_add(result,
+		"above", json_object_new_int((int32_t)oa_entry->body.above));
 
     return 0;
 }

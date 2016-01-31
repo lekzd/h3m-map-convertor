@@ -1,4 +1,4 @@
-
+﻿
 #include "../../../homm3tools/h3m/h3mlib/h3mlib.h"
 #include "../../../homm3tools/h3m/h3mlib/h3mlib_ctx.h"
 
@@ -12,7 +12,7 @@ int parse_object_sign(json_object *result, struct H3M_OD_ENTRY *od_entry)
 
 	if (body->mesg_size > 0) {
 		json_object_object_add(result,
-			"message", json_object_new_string((char *)body->mesg));
+			"message", json_object_new_string(body->mesg));
 	}
 
 	return 0;
