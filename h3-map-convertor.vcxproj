@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\h3m2json.c" />
+    <ClCompile Include="src\objects\object_creatures_parser.c" />
     <ClCompile Include="src\objects\object_hero.c" />
     <ClCompile Include="src\objects\object_random_dwelling.c" />
     <ClCompile Include="src\objects\object_resource.c" />
@@ -32,6 +33,7 @@
     <ClCompile Include="src\tiles_section.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\object_creatures_parser.h" />
     <ClInclude Include="src\objects\object_hero.h" />
     <ClInclude Include="src\objects\object_random_dwelling.h" />
     <ClInclude Include="src\objects\object_resource.h" />

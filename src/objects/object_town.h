@@ -7,6 +7,6 @@
 #include "../../3rdparty/json/random_seed.h"
 #include "../../3rdparty/json/json.h"
 
-int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry);
+int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry, struct META_OD_ENTRY *meta_od_entry);
 
 #endif

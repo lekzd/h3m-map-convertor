@@ -129,13 +129,13 @@ static int _get_entity_data(json_object *result, h3mlib_ctx_t ctx, int id)
             _set_type(result, "hero");
         case H3M_OBJECT_PRISON:
             _set_type(result, "prison");
-            parse_object_hero(result, od_entry);
+            parse_object_hero(result, od_entry, meta_od_entry);
             break;
 
         case H3M_OBJECT_TOWN:
         case H3M_OBJECT_TOWN_ABSOD:
             _set_type(result, "town");
-            parse_object_town(result, od_entry);
+            parse_object_town(result, od_entry, meta_od_entry);
             break;
 
         case H3M_OBJECT_RANDOM_DWELLING_ABSOD:
