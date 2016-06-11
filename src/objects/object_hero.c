@@ -47,7 +47,7 @@ static int _parse_hero_artifacts(json_object *result, union H3M_COMMON_ARTIFACTS
 	json_object* worn_json;
 	worn_json = json_object_new_object();
 
-	_add_artifact(worn_json, "spellbook", artifacts->absod.worn.spellbook);
+	_add_artifact(worn_json, "spellbook", artifacts->sod.worn.spellbook);
 	_add_artifact(worn_json, "headwear", artifacts->absod.worn.headwear);
 	_add_artifact(worn_json, "shoulders", artifacts->absod.worn.shoulders);
 	_add_artifact(worn_json, "right_hand", artifacts->absod.worn.right_hand);
@@ -60,7 +60,7 @@ static int _parse_hero_artifacts(json_object *result, union H3M_COMMON_ARTIFACTS
 	_add_artifact(worn_json, "misc2", artifacts->absod.worn.misc2);
 	_add_artifact(worn_json, "misc3", artifacts->absod.worn.misc3);
 	_add_artifact(worn_json, "misc4", artifacts->absod.worn.misc4);
-	_add_artifact(worn_json, "misc5", artifacts->absod.worn.misc5);
+	_add_artifact(worn_json, "misc5", artifacts->sod.worn.misc5);
 	_add_artifact(worn_json, "device1", artifacts->absod.worn.device1);
 	_add_artifact(worn_json, "device2", artifacts->absod.worn.device2);
 	_add_artifact(worn_json, "device3", artifacts->absod.worn.device3);
@@ -70,7 +70,7 @@ static int _parse_hero_artifacts(json_object *result, union H3M_COMMON_ARTIFACTS
 
 	json_object* backpack_json;
 	int16_t backpack_count = artifacts->sod.backpack.count;
-	if (backpack_count != -1) {
+	if (backpack_count != 0) {
 		backpack_json = json_object_new_array();
 		for (unsigned int i = 0; i < backpack_count; ++i) {
 			json_object_array_add(backpack_json, json_object_new_int(artifacts->sod.backpack.artifacts[i]));
