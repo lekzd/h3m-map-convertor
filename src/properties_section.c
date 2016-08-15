@@ -85,6 +85,49 @@ static int _get_lose_condition(json_object *result, h3mlib_ctx_t ctx)
 	return 0;
 }
 
+static int _read_binnary_mask_array(json_object *result, char *attr_name, uint8_t mask[], int length)
+{
+	json_object *values_array;
+	values_array = json_object_new_array();
+	int empty = 1;
+	for (unsigned int i = 0; i < length; ++i) {
+		uint8_t charCode = (uint8_t)mask[i];
+		json_object_array_add(values_array, json_object_new_int(charCode));
+		if (charCode) {
+			empty = 0;
+		}
+	}
+	if (empty) {
+		json_object_object_add(result, attr_name, json_object_new_array());
+	}
+	else {
+		json_object_object_add(result, attr_name, values_array);
+	}
+	return 0;
+}
+
+static int _add_map_restrictions(json_object *result, h3mlib_ctx_t ctx)
+{
+	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
+	json_object *restrictions_json;
+	restrictions_json = json_object_new_object();
+
+	_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 16);
+
+	if (h3m_get_format(ctx) == H3M_FORMAT_AB) {
+		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.ab.available_artifacts, 18);
+	}
+	if (h3m_get_format(ctx) == H3M_FORMAT_SOD) {
+		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.sod.available_artifacts, 18);
+		_read_binnary_mask_array(restrictions_json, "spells", h3m->ai.sod.available_spells, 9);
+		_read_binnary_mask_array(restrictions_json, "secondaries", h3m->ai.sod.available_skills, 4);
+	}
+
+	json_object_object_add(result,
+		"restrictions", restrictions_json);
+	return 0;
+}
+
 int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 {
 	char mapVersion[4];
@@ -111,6 +154,17 @@ int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 	json_object_object_add(result, 
 		"name", json_object_new_string(name));
 
+	json_object *name_array;
+	name_array = json_object_new_array();
+	for (unsigned int i = 0; i < sizeof(name); ++i) {
+		uint8_t charCode = (uint8_t)name[i];
+		if (charCode != 0) {
+			json_object_array_add(name_array, json_object_new_int(charCode));
+		}
+	}
+	json_object_object_add(result,
+		"name_array", name_array);
+
 	char desc[255] = { 0 };
 	_get_map_desc(desc, sizeof(desc), ctx);
 	json_object_object_add(result, 
@@ -127,6 +181,8 @@ int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 	_get_lose_condition(lose_conditions_json, ctx);
 	json_object_object_add(result,
 		"lose_condition", lose_conditions_json);
+
+	_add_map_restrictions(result, ctx);
 
 	return 0;
 }
