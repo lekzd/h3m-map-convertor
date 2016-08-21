@@ -54,6 +54,9 @@
     <ClCompile Include="src\objects\object_creatures_parser.c">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\objects\object_monster.c">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects_section.h">
@@ -87,6 +90,9 @@
       <Filter>Source Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\object_creatures_parser.h">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\object_monster.h">
       <Filter>Source Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
