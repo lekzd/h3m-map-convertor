@@ -112,15 +112,18 @@ static int _add_map_restrictions(json_object *result, h3mlib_ctx_t ctx)
 	json_object *restrictions_json;
 	restrictions_json = json_object_new_object();
 
-	_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 16);
-
+	if (h3m_get_format(ctx) == H3M_FORMAT_ROE) {
+		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 16);
+	}
 	if (h3m_get_format(ctx) == H3M_FORMAT_AB) {
 		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.ab.available_artifacts, 18);
+		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
 	}
 	if (h3m_get_format(ctx) == H3M_FORMAT_SOD) {
 		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.sod.available_artifacts, 18);
 		_read_binnary_mask_array(restrictions_json, "spells", h3m->ai.sod.available_spells, 9);
 		_read_binnary_mask_array(restrictions_json, "secondaries", h3m->ai.sod.available_skills, 4);
+		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
 	}
 
 	json_object_object_add(result,
