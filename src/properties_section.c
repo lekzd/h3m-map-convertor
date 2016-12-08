@@ -59,7 +59,7 @@ static int _get_map_name(char *result, size_t n, h3mlib_ctx_t ctx)
 static int _get_map_desc(char *result, size_t n, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
-	if (h3m->bi.any.name != NULL) {
+	if (h3m->bi.any.desc != NULL) {
 		strncpy(result, (char *)h3m->bi.any.desc, n);
 	} else {
 		*result = '\0';
