@@ -5,6 +5,8 @@
 #include "../../3rdparty/json/random_seed.h"
 #include "../../3rdparty/json/json.h"
 
+#include "../utils.h"
+
 static int _parse_hero_primary_skills(json_object *result, struct H3M_COMMON_PRIMARY_SKILLS *primary_skills)
 {
 	json_object_object_add(result,
@@ -87,13 +89,17 @@ int parse_object_hero(json_object *result, struct H3M_OD_ENTRY *od_entry, struct
 		= (struct H3M_OD_BODY_DYNAMIC_HERO *)od_entry->body;
 
 	if (body->has_name) {
+		struct H3M_COMMON_STRING *name
+			= (struct H3M_COMMON_STRING *)body->name;
 		json_object_object_add(result,
-			"name", json_object_new_string((char *)body->name));
+			"name", read_string((char *)name, name->size));
 	}
 
 	if (body->has_biography) {
+		struct H3M_COMMON_STRING *biography
+			= (struct H3M_COMMON_STRING *)body->biography;
 		json_object_object_add(result,
-			"biography", json_object_new_string((char *)body->biography));
+			"biography", read_string((char *)biography, biography->size));
 	}
 
 	json_object_object_add(result,

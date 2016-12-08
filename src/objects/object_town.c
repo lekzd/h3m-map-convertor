@@ -5,6 +5,8 @@
 #include "../../3rdparty/json/random_seed.h"
 #include "../../3rdparty/json/json.h"
 
+#include "../utils.h"
+
 int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry, struct META_OD_ENTRY *meta_od_entry)
 {
 	struct H3M_OD_BODY_DYNAMIC_TOWN *body
@@ -13,10 +15,11 @@ int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry, struct
 	json_object_object_add(result,
 			"owner", json_object_new_int(body->owner));
 
-    //TODO correct reading of multibyte name
     if (body->has_name) {
+		struct H3M_COMMON_STRING *name
+			= (struct H3M_COMMON_STRING *)body->name;
         json_object_object_add(result,
-            "name", json_object_new_string((char *)body->name));
+			"name", read_string((char *)name, name->size));
     }
 
 	json_object_object_add(result,
