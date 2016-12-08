@@ -13,6 +13,7 @@
 #include "objects_section.h"
 #include "players_section.h"
 #include "tiles_section.h"
+#include "utils.h"
 
 int wmain(int argc, wchar_t *argv[], wchar_t *envp[])
 {

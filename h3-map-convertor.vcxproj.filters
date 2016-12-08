@@ -57,6 +57,9 @@
     <ClCompile Include="src\objects\object_monster.c">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects_section.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="src\objects\object_monster.h">
       <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

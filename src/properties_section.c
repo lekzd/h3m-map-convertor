@@ -6,6 +6,8 @@
 #include "../3rdparty/json/random_seed.h"
 #include "../3rdparty/json/json.h"
 
+#include "utils.h"
+
 static int _get_map_version(char *result, h3mlib_ctx_t ctx)
 {
 	switch (h3m_get_format(ctx)) {
@@ -85,27 +87,6 @@ static int _get_lose_condition(json_object *result, h3mlib_ctx_t ctx)
 	return 0;
 }
 
-static int _read_binnary_mask_array(json_object *result, char *attr_name, uint8_t mask[], int length)
-{
-	json_object *values_array;
-	values_array = json_object_new_array();
-	int empty = 1;
-	for (unsigned int i = 0; i < length; ++i) {
-		uint8_t charCode = (uint8_t)mask[i];
-		json_object_array_add(values_array, json_object_new_int(charCode));
-		if (charCode) {
-			empty = 0;
-		}
-	}
-	if (empty) {
-		json_object_object_add(result, attr_name, json_object_new_array());
-	}
-	else {
-		json_object_object_add(result, attr_name, values_array);
-	}
-	return 0;
-}
-
 static int _add_map_restrictions(json_object *result, h3mlib_ctx_t ctx)
 {
 	const struct H3M *h3m = &((struct H3MLIB_CTX *)ctx)->h3m;
@@ -113,17 +94,17 @@ static int _add_map_restrictions(json_object *result, h3mlib_ctx_t ctx)
 	restrictions_json = json_object_new_object();
 
 	if (h3m_get_format(ctx) == H3M_FORMAT_ROE) {
-		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 16);
+		read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 16);
 	}
 	if (h3m_get_format(ctx) == H3M_FORMAT_AB) {
-		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.ab.available_artifacts, 18);
-		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
+		read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.ab.available_artifacts, 18);
+		read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
 	}
 	if (h3m_get_format(ctx) == H3M_FORMAT_SOD) {
-		_read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.sod.available_artifacts, 18);
-		_read_binnary_mask_array(restrictions_json, "spells", h3m->ai.sod.available_spells, 9);
-		_read_binnary_mask_array(restrictions_json, "secondaries", h3m->ai.sod.available_skills, 4);
-		_read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
+		read_binnary_mask_array(restrictions_json, "artifacts", h3m->ai.sod.available_artifacts, 18);
+		read_binnary_mask_array(restrictions_json, "spells", h3m->ai.sod.available_spells, 9);
+		read_binnary_mask_array(restrictions_json, "secondaries", h3m->ai.sod.available_skills, 4);
+		read_binnary_mask_array(restrictions_json, "heroes", h3m->ai.any.available_heroes, 20);
 	}
 
 	json_object_object_add(result,
@@ -153,25 +134,14 @@ int get_map_properties(json_object *result, h3mlib_ctx_t ctx)
 		"difficulty", json_object_new_int(difficulty));
 
 	char name[255] = { 0 };
-	_get_map_name(name, sizeof(name), ctx);
-	json_object_object_add(result, 
-		"name", json_object_new_string(name));
-
-	json_object *name_array;
-	name_array = json_object_new_array();
-	for (unsigned int i = 0; i < sizeof(name); ++i) {
-		uint8_t charCode = (uint8_t)name[i];
-		if (charCode != 0) {
-			json_object_array_add(name_array, json_object_new_int(charCode));
-		}
-	}
+	_get_map_name(name, sizeof(name), ctx);	
 	json_object_object_add(result,
-		"name_array", name_array);
+		"name", read_string(name, sizeof(name)));
 
 	char desc[255] = { 0 };
 	_get_map_desc(desc, sizeof(desc), ctx);
 	json_object_object_add(result, 
-		"descr", json_object_new_string(desc));
+		"descr", read_string(desc, sizeof(desc)));
 
 	json_object *win_conditions_json;
 	win_conditions_json = json_object_new_object();

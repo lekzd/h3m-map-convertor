@@ -32,6 +32,7 @@
     <ClCompile Include="src\players_section.c" />
     <ClCompile Include="src\properties_section.c" />
     <ClCompile Include="src\tiles_section.c" />
+    <ClCompile Include="src\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\object_creatures_parser.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="src\players_section.h" />
     <ClInclude Include="src\properties_section.h" />
     <ClInclude Include="src\tiles_section.h" />
+    <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{156F28C5-F623-4FEC-AE96-8C70284D6A76}</ProjectGuid>
