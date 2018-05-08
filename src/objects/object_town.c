@@ -19,7 +19,7 @@ int parse_object_town(json_object *result, struct H3M_OD_ENTRY *od_entry, struct
 		struct H3M_COMMON_STRING *name
 			= (struct H3M_COMMON_STRING *)body->name;
         json_object_object_add(result,
-			"name", read_string((char *)name, name->size));
+			"name", read_string((char *)name->data, name->size));
     }
 
 	json_object_object_add(result,

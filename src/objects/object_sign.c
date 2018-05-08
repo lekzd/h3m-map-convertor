@@ -5,6 +5,8 @@
 #include "../../3rdparty/json/random_seed.h"
 #include "../../3rdparty/json/json.h"
 
+#include "../utils.h"
+
 int parse_object_sign(json_object *result, struct H3M_OD_ENTRY *od_entry)
 {
 	struct H3M_OD_BODY_DYNAMIC_MESSAGE_BEARER *body 
@@ -12,7 +14,7 @@ int parse_object_sign(json_object *result, struct H3M_OD_ENTRY *od_entry)
 
 	if (body->mesg_size > 0) {
 		json_object_object_add(result,
-			"message", json_object_new_string(body->mesg));
+			"message", read_string(body->mesg, body->mesg_size));
 	}
 
 	return 0;

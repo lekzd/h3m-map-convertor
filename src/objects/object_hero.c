@@ -52,21 +52,21 @@ static int _parse_hero_artifacts(json_object *result, union H3M_COMMON_ARTIFACTS
 	_add_artifact(worn_json, "spellbook", artifacts->sod.worn.spellbook);
 	_add_artifact(worn_json, "headwear", artifacts->absod.worn.headwear);
 	_add_artifact(worn_json, "shoulders", artifacts->absod.worn.shoulders);
-	_add_artifact(worn_json, "right_hand", artifacts->absod.worn.right_hand);
-	_add_artifact(worn_json, "left_hand", artifacts->absod.worn.left_hand);
-	_add_artifact(worn_json, "torso", artifacts->absod.worn.torso);
-	_add_artifact(worn_json, "right_ring", artifacts->absod.worn.right_ring);
-	_add_artifact(worn_json, "left_ring", artifacts->absod.worn.left_ring);
-	_add_artifact(worn_json, "feet", artifacts->absod.worn.feet);
-	_add_artifact(worn_json, "misc1", artifacts->absod.worn.misc1);
-	_add_artifact(worn_json, "misc2", artifacts->absod.worn.misc2);
-	_add_artifact(worn_json, "misc3", artifacts->absod.worn.misc3);
-	_add_artifact(worn_json, "misc4", artifacts->absod.worn.misc4);
-	_add_artifact(worn_json, "misc5", artifacts->sod.worn.misc5);
-	_add_artifact(worn_json, "device1", artifacts->absod.worn.device1);
-	_add_artifact(worn_json, "device2", artifacts->absod.worn.device2);
-	_add_artifact(worn_json, "device3", artifacts->absod.worn.device3);
-	_add_artifact(worn_json, "device4", artifacts->absod.worn.device4);
+	_add_artifact(worn_json, "neck", artifacts->absod.worn.right_hand);
+	_add_artifact(worn_json, "right_hand", artifacts->absod.worn.left_hand);
+	_add_artifact(worn_json, "left_hand", artifacts->absod.worn.torso);
+	_add_artifact(worn_json, "torso", artifacts->absod.worn.right_ring);
+	_add_artifact(worn_json, "right_ring", artifacts->absod.worn.left_ring);
+	_add_artifact(worn_json, "left_ring", artifacts->absod.worn.feet);
+	_add_artifact(worn_json, "feet", artifacts->absod.worn.misc1);
+	_add_artifact(worn_json, "misc1", artifacts->absod.worn.misc2);
+	_add_artifact(worn_json, "misc2", artifacts->absod.worn.misc3);
+	_add_artifact(worn_json, "misc3", artifacts->absod.worn.misc4);
+	_add_artifact(worn_json, "misc4", artifacts->absod.worn.device1);
+	_add_artifact(worn_json, "misc5", artifacts->sod.worn.unknown);
+	_add_artifact(worn_json, "device1", artifacts->absod.worn.device2);
+	_add_artifact(worn_json, "device2", artifacts->absod.worn.device3);
+	_add_artifact(worn_json, "device3", artifacts->absod.worn.device4);
 
 	json_object_object_add(result, "worn", worn_json);
 
@@ -92,14 +92,14 @@ int parse_object_hero(json_object *result, struct H3M_OD_ENTRY *od_entry, struct
 		struct H3M_COMMON_STRING *name
 			= (struct H3M_COMMON_STRING *)body->name;
 		json_object_object_add(result,
-			"name", read_string((char *)name, name->size));
+			"name", read_string((char *)name->data, name->size));
 	}
 
 	if (body->has_biography) {
 		struct H3M_COMMON_STRING *biography
 			= (struct H3M_COMMON_STRING *)body->biography;
 		json_object_object_add(result,
-			"biography", read_string((char *)biography, biography->size));
+			"biography", read_string((char *)biography->data, biography->size));
 	}
 
 	json_object_object_add(result,
