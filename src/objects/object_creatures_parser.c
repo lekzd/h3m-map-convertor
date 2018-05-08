@@ -5,15 +5,24 @@
 #include "../../3rdparty/json/random_seed.h"
 #include "../../3rdparty/json/json.h"
 
-static int _parse_slots(union H3M_COMMON_ARMY *army, json_object *result)
+static int _parse_slots(union H3M_COMMON_ARMY *army, json_object *result, unsigned int is_absod)
 {
 	for (unsigned int i = 0; i <= 6; ++i) {
 		json_object *creature_stack_item;
 		creature_stack_item = json_object_new_array();
-		if (army->absod.slots[i].type != 65535) {
-			json_object_array_add(creature_stack_item, json_object_new_int(army->absod.slots[i].type));
-			json_object_array_add(creature_stack_item, json_object_new_int(army->absod.slots[i].quantity));
+
+		if (is_absod) {
+			if (army->absod.slots[i].type != 65535) {
+				json_object_array_add(creature_stack_item, json_object_new_int(army->absod.slots[i].type));
+				json_object_array_add(creature_stack_item, json_object_new_int(army->absod.slots[i].quantity));
+			}
+		} else {
+			if (army->roe.slots[i].type != 255) {
+				json_object_array_add(creature_stack_item, json_object_new_int(army->roe.slots[i].type));
+				json_object_array_add(creature_stack_item, json_object_new_int(army->roe.slots[i].quantity));
+			}
 		}
+		
 		json_object_array_add(result, creature_stack_item);
 	}
 	return 0;
@@ -24,8 +33,10 @@ static int _parse_hero_creatures(json_object *result, struct H3M_OD_ENTRY *od_en
 	struct H3M_OD_BODY_DYNAMIC_HERO *body
 		= (struct H3M_OD_BODY_DYNAMIC_HERO *)od_entry->body;
 
+	unsigned int is_absod = od_entry->absod_id != 0;
+
 	if (body->has_creatures) {
-		_parse_slots(body->creatures, result);
+		_parse_slots(body->creatures, result, is_absod);
 		return 1;
 	}
 	return 0;
@@ -36,8 +47,10 @@ static int _parse_town_creatures(json_object *result, struct H3M_OD_ENTRY *od_en
 	struct H3M_OD_BODY_DYNAMIC_TOWN *body
 		= (struct H3M_OD_BODY_DYNAMIC_TOWN *)od_entry->body;
 
+	unsigned int is_absod = od_entry->absod_id != 0;
+
 	if (body->has_creatures) {
-		_parse_slots(body->creatures, result);
+		_parse_slots(body->creatures, result, is_absod);
 		return 1;
 	}
 	return 0;
